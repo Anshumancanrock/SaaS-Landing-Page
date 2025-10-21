@@ -8,7 +8,7 @@ import { realData } from "@/lib/realData";
 // Extend Window interface to include Scrollbar
 declare global {
     interface Window {
-        Scrollbar: any;
+        Scrollbar: typeof import('smooth-scrollbar').default;
     }
 }
 
@@ -28,7 +28,6 @@ export default function Navbar() {
                             href={`#${item.toLowerCase()}`} 
                             className='hover:scale-105 transition-all'                            onClick={(e) => {
                                 e.preventDefault();
-                                let targetElement;
                                 let targetSelector = '';
                                 
                                 if (item.toLowerCase() === 'features') {
@@ -40,11 +39,11 @@ export default function Navbar() {
                                     targetSelector = '.pricing-section';
                                 }
                                 
-                                targetElement = document.querySelector(targetSelector);
+                                const targetElement = document.querySelector(targetSelector);
                                 
                                 if (targetElement) {
                                     // Check if we're using smooth-scrollbar
-                                    const scrollbar = document.querySelector('[data-scrollbar-initialized]');
+                                    const scrollbar = document.querySelector('[data-scrollbar-initialized]') as HTMLElement;
                                     if (scrollbar && window.Scrollbar) {
                                         // Get the Scrollbar instance
                                         const scrollbarInstance = window.Scrollbar.get(scrollbar);
