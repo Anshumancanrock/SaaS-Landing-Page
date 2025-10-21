@@ -48,7 +48,7 @@ function Hero() {
             </p>
           </div>
           <div className="flex flex-row gap-3">
-            <Link href='https://calendly.com/ysingla/15min'>
+            <Link href='https://cal.com/anshumon/30min'>
               <Button
                 className={cn(
                   "gap-4 dark:text-black rounded-full bg-black text-white relative px-8 cursor-pointer overflow-hidden shadow-2xl hover:bg-black hover:text-white dark:shadow-black border border-zinc-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200",

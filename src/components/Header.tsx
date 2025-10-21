@@ -5,6 +5,13 @@ import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { realData } from "@/lib/realData";
 
+// Extend Window interface to include Scrollbar
+declare global {
+    interface Window {
+        Scrollbar: any;
+    }
+}
+
 export default function Navbar() {
     const { setTheme, resolvedTheme } = useTheme();
     return (
@@ -19,20 +26,38 @@ export default function Navbar() {
                         <a 
                             key={item} 
                             href={`#${item.toLowerCase()}`} 
-                            className='hover:scale-105 transition-all'
-                            onClick={(e) => {
+                            className='hover:scale-105 transition-all'                            onClick={(e) => {
                                 e.preventDefault();
                                 let targetElement;
+                                let targetSelector = '';
+                                
                                 if (item.toLowerCase() === 'features') {
-                                    targetElement = document.querySelector('.bento-grid-container');
+                                    targetSelector = '.bento-grid-container';
                                 } else if (item.toLowerCase() === 'integrations') {
-                                    // Specifically target the heading for AI Based Pricing strategy
-                                    targetElement = document.querySelector('.product-details-section h2');
+                                    // Specifically target the product details section
+                                    targetSelector = '.product-details-section';
                                 } else if (item.toLowerCase() === 'pricing') {
-                                    targetElement = document.querySelector('.pricing-section');
+                                    targetSelector = '.pricing-section';
                                 }
+                                
+                                targetElement = document.querySelector(targetSelector);
+                                
                                 if (targetElement) {
-                                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    // Check if we're using smooth-scrollbar
+                                    const scrollbar = document.querySelector('[data-scrollbar-initialized]');
+                                    if (scrollbar && window.Scrollbar) {
+                                        // Get the Scrollbar instance
+                                        const scrollbarInstance = window.Scrollbar.get(scrollbar);
+                                        if (scrollbarInstance) {
+                                            // Get the offset position of the target element
+                                            const offsetTop = targetElement.getBoundingClientRect().top + scrollbarInstance.offset.y;
+                                            // Scroll to the target
+                                            scrollbarInstance.scrollTo(0, offsetTop, 800);
+                                        }
+                                    } else {
+                                        // Fallback to default scrolling
+                                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    }
                                 }
                             }}
                         >

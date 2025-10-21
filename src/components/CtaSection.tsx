@@ -31,7 +31,7 @@ export default function CTASection() {
                     {realData.additional_sections.title}
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-7 sm:mt-8 w-full">
-                    <Link href='https://calendly.com/ysingla/15min' className="w-full sm:w-auto">
+                    <Link href='https://cal.com/anshumon/30min' className="w-full sm:w-auto">
                         <Button
                             variant="secondary"
                             className="w-full sm:w-auto bg-white/20 hover:bg-white/30 whitespace-break-spaces max-sm:text-xs text-white rounded-full px-4 xs:px-6 sm:px-8 py-2 h-11 xs:h-12 text-base xs:text-lg sm:text-sm font-medium cursor-pointer transition-all"
